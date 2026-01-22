@@ -8,4 +8,4 @@ Model persistence method used (e.g., Joblib / Pickle): joblib
 
 Live URL of the hosted application: https://house-prediction-iqlr.onrender.com
 
-GitHub repository link: https://github.com/Kadexy/House_prediction/tree/main/House_Prediction-main
+GitHub repository link: https://github.com/XayZay/houseprice_project
