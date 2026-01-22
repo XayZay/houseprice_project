@@ -1,0 +1,28 @@
+Regression Metrics:
+  Mean Absolute Error (MAE):        $177,898.01
+  Mean Squared Error (MSE):         $979,371,938,097.72
+  Root Mean Squared Error (RMSE):   $989,632.22
+  R² Score:                         0.0397
+
+Feature Importance Ranking:
+  GrLivArea      : 0.6358
+  Neighborhood   : 0.1242
+  YearBuilt      : 0.1197
+  TotalBsmtSF    : 0.0759
+  GarageCars     : 0.0253
+  OverallQual    : 0.0190
+
+==================================================
+SAVING MODEL
+==================================================
+
+✓ Model saved: models/price_model.joblib
+✓ Metrics saved: models/model_metrics.joblib
+✓ Feature names saved: models/feature_names.joblib
+
+==================================================
+✓ MODEL DEVELOPMENT COMPLETED SUCCESSFULLY!
+==================================================
+
+You can now use the trained model in the Flask app.
+Run: python app.py

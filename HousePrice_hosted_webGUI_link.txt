@@ -1,0 +1,11 @@
+Name: Oyeyemi Oluwatobiloba		
+
+Matric Number: 22CG031946
+
+Machine Learning Algorithm Used: RANDOM CLASSIFIER
+
+Model persistence method used (e.g., Joblib / Pickle): joblib
+
+Live URL of the hosted application: https://house-prediction-iqlr.onrender.com
+
+GitHub repository link: https://github.com/Kadexy/House_prediction/tree/main/House_Prediction-main

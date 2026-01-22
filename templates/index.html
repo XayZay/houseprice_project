@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>House Price Prediction System</h1>
+            <p class="subtitle">Predict house prices using Machine Learning</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Prediction Form -->
+            <section class="prediction-section">
+                <h2>Enter House Features</h2>
+                <form id="predictionForm">
+                    <div class="form-group">
+                        <label for="overall_qual">
+                            Overall Quality (1-10)
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="overall_qual" 
+                            name="overall_qual" 
+                            min="1" 
+                            max="10" 
+                            step="1"
+                            required
+                            placeholder="e.g., 7"
+                        >
+                        <small>Rating of overall material and finish of the house</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gr_liv_area">
+                            Above Grade Living Area (sq ft)
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="gr_liv_area" 
+                            name="gr_liv_area" 
+                            min="0"
+                            step="1"
+                            required
+                            placeholder="e.g., 2500"
+                        >
+                        <small>Living area above ground level</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total_bsmt_sf">
+                            Total Basement Area (sq ft)
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="total_bsmt_sf" 
+                            name="total_bsmt_sf" 
+                            min="0"
+                            step="1"
+                            required
+                            placeholder="e.g., 1500"
+                        >
+                        <small>Total basement area in square feet</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="garage_cars">
+                            Garage Cars (0-5)
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="garage_cars" 
+                            name="garage_cars" 
+                            min="0"
+                            max="5"
+                            step="1"
+                            required
+                            placeholder="e.g., 2"
+                        >
+                        <small>Size of garage in car capacity</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year_built">
+                            Year Built
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="year_built" 
+                            name="year_built" 
+                            min="1800"
+                            max="2024"
+                            step="1"
+                            required
+                            placeholder="e.g., 2005"
+                        >
+                        <small>Original construction year</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="neighborhood">
+                            Neighborhood
+                            <span class="required">*</span>
+                        </label>
+                        <select id="neighborhood" name="neighborhood" required>
+                            <option value="">Select a neighborhood...</option>
+                        </select>
+                        <small>Physical locations within Ames city limits</small>
+                    </div>
+
+                    <button type="submit" class="btn-predict">
+                        Predict Price
+                    </button>
+                </form>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <h2>Prediction Result</h2>
+                <div id="resultContainer" class="result-container hidden">
+                    <div class="result-card">
+                        <h3>Predicted House Price</h3>
+                        <div class="price-display">
+                            <span id="predictedPrice" class="price">$0.00</span>
+                        </div>
+                        <p class="result-note">Based on the features you provided</p>
+                    </div>
+                </div>
+
+                <div id="errorContainer" class="error-container hidden">
+                    <div class="error-message" id="errorMessage"></div>
+                </div>
+
+                <div id="loadingContainer" class="loading-container hidden">
+                    <div class="spinner"></div>
+                    <p>Processing your prediction...</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Model Info Section -->
+        <section class="info-section">
+            <h2>Model Performance</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Mean Absolute Error</h4>
+                    <p class="metric-value" id="mae">-</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Root Mean Squared Error</h4>
+                    <p class="metric-value" id="rmse">-</p>
+                </div>
+                <div class="metric-card">
+                    <h4>R² Score</h4>
+                    <p class="metric-value" id="r2">-</p>
+                </div>
+            </div>
+
+            <div class="features-info">
+                <h3>Selected Features (6 of 9)</h3>
+                <ul>
+                    <li><strong>OverallQual</strong> - Overall material and finish rating</li>
+                    <li><strong>GrLivArea</strong> - Above grade living area</li>
+                    <li><strong>TotalBsmtSF</strong> - Total basement square footage</li>
+                    <li><strong>GarageCars</strong> - Garage capacity</li>
+                    <li><strong>YearBuilt</strong> - Year of construction</li>
+                    <li><strong>Neighborhood</strong> - Physical location</li>
+                </ul>
+            </div>
+
+            <div class="model-info">
+                <h3>Algorithm Information</h3>
+                <p><strong>Algorithm:</strong> Random Forest Regressor</p>
+                <p><strong>Training Method:</strong> 80-20 train-test split</p>
+                <p><strong>Dataset:</strong> House Prices: Advanced Regression Techniques</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 House Price Prediction System | CSC415 Project</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
